@@ -1,0 +1,65 @@
+# created on: 2018-06-15 10:52:23
+# Controller type:dlx2
+# result from processing K:\Python3_packages\cmdfilebuilder\tests\md_test_file2.txt
+# Files included by reference:
+#	md_test_file2.txt
+#	md_bad_filelist1.txt
+#	md_bad_filelist2.txt
+#	cmt_test_3.txt
+
+#lines from Slot 0
+
+# defined by Unknown!
+
+md1,s0,l1
+md1.s0,l2
+
+#lines from Slot 1
+
+# defined by Unknown!
+
+data md1, slot 1, line 1
+data md1, slot 1, line 2
+
+# defined by md_bad_filelist1.txt
+
+data md2, slot 1, line 1
+data md2, slot 1, line 2
+
+# defined by md_bad_filelist2.txt
+
+data md3, slot 1, line 1
+data md3, slot 1, line 2
+
+#lines from Slot 2
+
+# defined by md_bad_filelist1.txt
+
+#from md_bad_filelist1.txt line0
+data md2, slot 2, line 1 #with comment
+data md2, slot 2, line 2
+
+#lines from Slot 3
+
+# defined by md_bad_filelist2.txt
+
+#from md_bad_filelist2.txt line0
+data md2, slot 3, line 1
+data md2, slot 3, line 2 #with trailing comment
+
+#lines from Slot 4
+
+#/ comment test file 3
+# cmt
+#cmt
+data
+#/ cmt2
+#/cmt3
+
+#lines from Slot 99
+
+# defined by Unknown!
+
+md1,s99,l1
+md1.s99,l2
+

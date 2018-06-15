@@ -1,0 +1,27 @@
+# metadata md_bad_filelist2.txt 
+#<metadata repeater="dlx2-887354">
+#<!-- metadata block 3 -->
+#<filelist>
+#<file>md_bad_filelist1.txt</file>
+#<file>md_bad_filelist2.txt</file>
+#<file>cmt_test_3.txt</file>
+#</filelist>
+#<slot id="1">
+data md3, slot 1, line 1
+data md3, slot 1, line 2
+#</slot>
+#<slot id="3">
+    #from md_bad_filelist2.txt line0
+data md2, slot 3, line 1
+data md2, slot 3, line 2 #with trailing comment
+#</slot>
+#<slot id="0">
+md3,s0,l1
+md3,s0,l2
+#</slot>
+#<slot id="99">
+md3,s99,l1
+md3,s99,l2
+#</slot>
+
+#</metadata>

@@ -1,0 +1,20 @@
+; md_test_file3.txt -- setup user macros file
+; this file has an XML error
+; IRLP port 5 is linked to repeater port 1 in slot 99
+;<metadata>
+;<slot id="1">
+N053 260 040 020 001 0900 ; reset the macro to initial state for IRLP port 5. sends a beepbop
+N007 5
+
+;</slot>
+;</slot id="50">
+        ;
+        ; slot to setup special IRLP conditions
+        ;
+N055 260 ; erase the beepbop macro for IRLP port5
+N007 5 ; get the DTMF status for port 5
+N007 5 3 0 0 ; drop irlp tx if DTMF is detected. disable the TX and RX DTMF bypass
+        
+;</slot>
+
+;</metadata>

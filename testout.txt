@@ -1,0 +1,351 @@
+; created on: 2018-03-18 22:40:54
+; Controller type:dlx2
+; result from processing K:\Temp Storage\radio\Manor\RLC-Club-DeluxeII\new K7RVM-DLX2\K7RVM_Master.txt
+; Files included by reference:
+;	K7RVM_Master.txt
+;	setupport1.txt
+;	setupport2.txt
+;	setupport3.txt
+;	setupport4.txt
+;	setupport5.txt
+;	disableAutoPatch.txt
+;	macros.txt
+;	schedules.txt
+;	users.txt
+
+;lines from Slot 0
+
+; defined by K7RVM_Master.txt
+
+N050 08 1	;enable audio out Main Port from Serial Port
+N188            ; see if any users are logged in
+N050 08 0	;Mute audio out Main Port from Serial Port
+N073 ; look for preaccess enabled ports
+N076 1; list preaccess stop conditions
+N156 ; get the status of all TX ptt enabled ports
+N007 1	; get the DTMF Mute/Cover tones for ports 1-5
+N007 2
+N007 3
+N007 4
+N007 5
+;disable tx ptt on all ports
+;N155 1 0
+;N155 2 0
+;N155 3 0
+;N155 4 0
+;N155 5 0
+;N155 6 0
+;N155 7 0
+N061 1 ; disconnect ports from 1
+; LIST PORT COMMAND OPTIONS
+N078 1
+N078 2
+N078 3
+N078 4
+N078 5
+N078 6
+N078 7
+N078 8
+
+;lines from Slot 1
+
+; defined by setupport1.txt
+
+;Program Courtesy Tones
+N053 256 040 010 000 0665	;PORT 1 Tone 1 high
+N056 256 040 010 000 0500	;PORT 1 Tone 2 low
+
+; defined by setupport2.txt
+
+;Program Courtesy Tone
+N053 257 040 010 000 0500	;PORT 2 Tone just a simple tone but disabled in slot 20
+
+; defined by setupport3.txt
+
+;Program Courtesy Tones
+N053 258 040 010 000 0600	;PORT 3 Tone
+
+; defined by setupport4.txt
+
+;Program Courtesy Tones
+N053 259 040 010 000 0800	;PORT 4 Tone
+
+; defined by disableAutoPatch.txt
+
+N110 0 ;disable autopatch
+N020 019 0 ; disable hang timer
+N020 042 0 ; disable mini hang timer
+
+; defined by schedules.txt
+
+N084 00 99 0 ; disable all events
+
+; defined by users.txt
+
+n186 000
+n186 001
+n186 002
+n186 003
+n186 004
+n186 005
+
+;lines from Slot 11
+
+; defined by setupport1.txt
+
+;
+N005 1 1     ;PORT 1 COR Access (Repeater Port)
+N013 1 01    ;PORT 1 COR low PL Active High low to stop tx reset in slot98
+N007 1 31    ;PORT 1 DTMF Mute w/Cover Drop TX when DTMF tones are being received
+
+; defined by setupport2.txt
+
+N005 2 1     ;PORT 2 COR Access (Link Port)
+N013 2 00    ;PORT 2 COR and PL Active Low
+N007 2 31    ;PORT 2 DTMF Mute w/Cover Drop TX when DTMF tones are being received
+
+; defined by setupport3.txt
+
+N005 3 1     ;PORT 3 COR Access (Link Port)
+N013 3 00    ;PORT 3 COR and PL Active Low
+N007 3 31    ;PORT 3 DTMF Mute w/Cover Drop TX when DTMF tones are being received
+
+; defined by setupport4.txt
+
+N005 4 1     ;PORT 4 COR Access (Link Port)
+N013 4 00    ;PORT 4 COR and PL Active Low
+N007 4 31    ;PORT 4 DTMF Mute w/Cover Drop TX when DTMF tones are being received
+
+; defined by setupport5.txt
+
+;Program Courtesy Tone
+N041 5 0 ; disable courtesy beep for IRLP
+
+;lines from Slot 12
+
+; defined by setupport1.txt
+
+N053 220 064 250 041 007 048 052 043 411 830 680 ; initial id P1-Voice "K7RVM Repeater Female time Welcome"
+N053 226 064 250 278 007 418 514 316 411	; pending id #1 P1-Voice Kilo 7 Romeo Victor Mike Repeater"
+N053 232 064 250 041 007 048 052 587 043 411 046 042 270 001 002 003	; pending id #2 P1-Voice "K7RV pause M Repeater PL is 123"
+N053 238 064 250 041 007 048 052 587 043 411 046 546 042 270 001 002 003	; pending id #3 P1-Voice "K7RV pause M Repeater PL is 123"
+N053 244 030 20 07 27 31 22	;pending id #4 P1-CW "K7RVM"
+N053 250 030 20 07 27 31 22	;Impolite id P1-CW "K7RVM"
+
+; defined by setupport2.txt
+
+053 221 030 20 07 27 31 22 	;intial id P2-CW "K7RVM"
+053 227 221	;pending id #1 P2 CW "K7RVM"
+053 233 221	;pending id #2 P2 CW "K7RVM"
+053 239 221	;pending id #3 P2 CW "K7RVM"
+053 245 221	;pending id #4 P2 CW "K7RVM"
+053 251 221	;impolite id P2 CW "K7RVM"
+
+; defined by setupport3.txt
+
+053 222 030 20 07 27 31 22 	;intial id P3-CW "K7RVM"
+053 228 222	;pending id #1 P3 CW "K7RVM"
+053 234 222	;pending id #2 P3 CW "K7RVM"
+053 240 222	;pending id #3 P3 CW "K7RVM"
+053 246 222	;pending id #4 P3 CW "K7RVM"
+053 252 222	;impolite id P3 CW "K7RVM"
+
+; defined by setupport4.txt
+
+053 223 030 20 07 27 31 22 	;intial id P4-CW "K7RVM"
+053 229 223	;pending id #1 P4 CW "K7RVM"
+053 235 223	;pending id #2 P4 CW "K7RVM"
+053 241 223	;pending id #3 P4 CW "K7RVM"
+053 247 223	;pending id #4 P4 CW "K7RVM"
+053 253 223	;impolite id P4 CW "K7RVM"
+
+; defined by setupport5.txt
+
+053 224 030 20 07 27 31 22 	;intial id P5-CW "K7RVM" but ids are disabled for P5
+053 230 224	;pending id #1 P5-CW "K7RVM"
+053 236 224	;pending id #2 P5-CW "K7RVM"
+053 242 224	;pending id #3 P5-CW "K7RVM"
+053 248 224	;pending id #4 P5-CW "K7RVM"
+053 254 224	;impolite id P5-CW "K7RVM"
+
+;lines from Slot 20
+
+; defined by setupport1.txt
+
+N020 013 200	;Transitter 1 Hang Timer 2 seconds
+N020 118 360	;Receiver 1 Timeout Timer 6 mins
+N041 1 1	;PORT 1 Courtesy Tone enabled
+
+; defined by setupport2.txt
+
+N020 014 000	;Transitter 2 Hang Timer 0 seconds
+N020 119 001	;Receiver 2 Timeout Timer 1 second
+N041 2 0	;PORT 2 Courtesy Tone disabled
+
+; defined by setupport3.txt
+
+N020 015 000	;Transitter 3 Hang Timer 0 seconds
+N020 120 360	;Receiver 3 Timeout Timer 3 mins
+N041 3 0	;PORT 3 Courtesy Tone disabled
+
+; defined by setupport4.txt
+
+N020 016 000	;Transitter 4 Hang Timer 0 seconds
+N020 121 360	;Receiver 4 Timeout Timer 3 mins
+N041 4 0	;PORT 4 Courtesy Tone disabled
+
+;lines from Slot 31
+
+; defined by macros.txt
+
+N053 554 596597 ;Macro 554 PLAY ERROR TONE
+N053 500 554;Macro 500 - Link to Jo County DISABLED PLAY ERROR TONE
+N010 500 c561	;Cmd c561 runs Macro 500;Command Change
+N053 502 554;Macro 502 - Un-link Jo County DISABLED PLAY ERROR TONE
+N010 502 c560	;Cmd c560 runs Macro 502
+N053 504 554;Macro 504 - Link to South Valley DISABLED PLAY ERROR TONE
+N010 504 c781	;Cmd c781 runs Macro 504
+N053 506 554 ;Macro 506 - Un-link South Valley  DISABLED PLAY ERROR TONE
+N010 506 c780	;Cmd c780 runs Macro 506
+N053 508 554;Macro 508 - Link to North Valley  DISABLED PLAY ERROR TONE
+N010 508 c681	;Cmd c681 runs Macro 508
+N053 510 554 ;macro 510 - Un-link North Valley  DISABLED PLAY ERROR TONE
+010 510 c680	;Cmd c680 runs Macro 510
+N053 512 554;Macro 512 - Link All DISABLED PLAY ERROR TONE
+N010 512 c251	;Cmd c251 runs Macro 512
+N053 514 554;macro 514 - Un-link ALL DISABLED PLAY ERROR TONE
+N010 514 c250	;Cmd c250 runs Macro 514
+N053 516 036 046 042 358	;Macro 516 - COR ON and PL ONPL OFF
+N056 516 038	;Kill Response
+N056 516 005 13	;Rpt Port COR ON and PL ON
+N010 516 c751	;Cmd c751 runs Macro 516
+N053 517 036 046 042 354	;Macro 517 - COR ON and PL Off;PL ON
+N056 517 038	;Kill Response
+N056 517 005 11	;Rpt Port COR ON and PL OFF
+N010 517 c750	;Cmd c750 runs Macro 517
+N053 518 040 800 000 1000	;1kc tone for 800ms;Macro 518 - Send tone
+n010 518 c861	;Cmd c861 runs Macro 518
+N053 519 052	;Radio Check
+N053 520 052	;Radio Check
+N010 519 c721	;Cmd c721 runs Macro 519
+N010 520 11	;Cmd 11 runs Macro 520
+N053 521 554;Macro 521 - Link Rptr to IRLP and SV (Ashland)  DISABLED PLAY ERROR TONE
+010 521 c47571	;Cmd c47571runs Macro 521
+N053 523 554;macro 523 - Un-link IRLP and SV (Ashland) from Repeater  DISABLED PLAY ERROR TONE
+010 523 c47570	;Cmd c47570 runs Macro 523;Command Change
+N053 548 030 3209251218	;W9PCi;Macro 548	;W9PCi Testing
+N056 548 030 29142829182316	;Testing
+N010 548 99	;Cmd 99 ID's w9pci testing
+N101 10	;Analog input xx degrees ER Temp ;Macro 549	;Voice System Check..
+N101 20	;Analog input xx degrees System Temp
+N101 31	;Analog input xx.x volts Sysem Voltage
+N053 549 063 461 125 587 839 516 469 837 161 	;Sys Voltage is xx.x volts, temp is xx.x degrees
+N056 549 063 035 048 469 270 836 161	;ER Temp is xx.xx Degrees
+N010 549 43	;Cmd 43 reports System voltage, cabinet and ER Temps;Command Change
+N053 550 036 835 830	;Macro 550	;Voice Welcome and GAE Time GAE and Time
+N056 550 063 587 526 487 476 041 007 048 052 043 411	;Welcome
+N010 550 44	;Cmd 44 reports Time;Command Change
+N053 551 554;Macro 551	;ARES NET Thursday At 1930
+N053 552 063 835 041 007 048 052 043 396 131 336 488 086 009 031 043 ;Macro 552	;K7RVM Radio Club NET Today At 9AM
+N056 552 063 071 234 549 048 526 830
+N053 553 554	;Macro 553 WHAMs meeting on this repeater Thursday at 1900
+N053 575 036 835830587046042001002003587526;Macro 575
+N053 900 035;Macro 900
+N053 999 036 040045392358 ;Macro 999; what is this for?
+N056 999 038
+N056 999 000 13
+
+; defined by users.txt
+
+n186 000 1 7 ;disable the password system
+n186 001 1 7 0 6334 ; user 001 enabled level 7 pw 6334
+n191 001 044 006 053 044 ;n6wn
+n186 002 1 7 0 569405 ; user 002 enabled level 7 pw 569405
+n191 002 044 006 053 044 000 ;n6wn0
+n186 003 1 7 0 7388 ; user 002 enabled level 7 pw 7388
+n191 003 044 006 053 044 001 ;n6wn1
+n186 004 1 7 0 5869 ; user 002 enabled level 7 pw ku6y
+n191 004 041 051 006 055 ;ku6y
+
+;lines from Slot 32
+
+; defined by disableAutoPatch.txt
+
+;rename autopatch commands to pointo macro 554 which is the error tone defined in slot 31
+N010 110 554 ;disable the autopatch configure
+N010 111 554 ;the manual off hook
+N010 112 554 ;normal forward dial
+N010 113 554 ;etc
+N010 137 554
+N010 129 554
+;N010 114 554 ;leave AP hangup alone as it may be needed
+N010 115 554
+N010 116 554
+N010 119 554
+N010 120 554
+N010 121 554
+N010 122 554
+N010 123 554
+N010 124 554
+N010 125 554
+N010 126 554
+N010 127 554
+N010 128 554
+N010 133 554
+N010 134 554
+N010 135 554
+N010 132 554
+N010 136 554
+N010 192 554
+
+;lines from Slot 50
+
+; defined by setupport5.txt
+
+;
+; slot to setup special IRLP conditions
+;
+N020 017 000 ; set hang timer for port 5 to 0
+N020 040 000 ; set mini hang timer for port 5 to 0
+N020 122 180 ;Receiver 5 Timeout Timer 3 mins
+N085 5 0 ; disable IDs
+N007 5 0 0 0 ; dtmf mute off bypasses off, cover tone off, drop tx off
+
+;lines from Slot 98
+
+; defined by setupport1.txt
+
+N013 1 11	;PORT 1 COR and PL Active High enable the repeater
+
+; defined by schedules.txt
+
+;Schedule Slots
+;082 10 551 12 00 1	;SLOT 10 - Macro 551 at noon each day
+N082 11 549 05 00 1	;slot 11 - Macro 549 at 5pm each day
+N084 11 1 ; enable slot 11
+;082 12 552 08 00 0	;slot 12 - Macro 552 at 8am each day
+;082 13 553 10 00 0	;slot 13 - Macro 553 at 10am each day
+;082 14 553 06 00 1	;slot 13 - Macro 553 at 6pm each day
+
+; defined by users.txt
+
+186 000 1 0
+
+;lines from Slot 99
+
+; defined by K7RVM_Master.txt
+
+; These timers may help prevent DTMF Voice Falsing
+020 020 100	;DTMF Mute Delay 100ms
+020 043 50	;Keyup delay Rx 1 .5sec
+N049 1 0440 0350 ;set preacces tone on port 1 to default
+N070 1
+;N155 5 1
+N053 900 N035   ;RESET CONTROLLER macro
+N010 900 C73738  ;and rename it
+N000 11 ;set port 1 to a repeater
+N000 15 ;connect ports 1 and 5 (IRLP)
+N189 ; user logoff
+n195 0 ;disable hf
+050 08 1	;enable audio out Main Port from Serial Port
+

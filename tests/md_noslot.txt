@@ -1,0 +1,9 @@
+# metadata no slot test file 
+#<metadata repeater="dlx2-887354">
+#<!-- metadata no slot -->
+#<filelist>
+#<file>test/cm1_test_1.txt</file>
+#<file>test/cm1_test_2.txt</file>
+#<file>test/cm1_test_3.txt</file>
+#</filelist>
+#</metadata>

@@ -1,0 +1,22 @@
+# metadata test file 1 
+#<metadata repeater="dlx2-887354">
+#<!-- metadata block 1 -->
+#<filelist>
+#<file>cmt_test_1.txt</file>
+#<file>cmt_test_2.txt</file>
+#<file>cmt_test_3.txt</file>
+#</filelist>
+#<slot id="1">
+data md1, slot 1, line 1
+data md1, slot 1, line 2
+#</slot>
+#<slot id="0">
+md1,s0,l1
+md1.s0,l2
+#</slot>
+#<slot id="99">
+md1,s99,l1
+md1.s99,l2
+#</slot>
+
+#</metadata>
