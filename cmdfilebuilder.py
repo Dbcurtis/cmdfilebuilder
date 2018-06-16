@@ -288,7 +288,7 @@ def _main():
     #print(os.path.abspath('.'))
     THE_LOGGER.info('Current Path is: %s', str(os.path.abspath('.')))
     args = _parser.parse_args()
-    [THE_LOGGER.info('args:%s, %s', i[0], i[1]) for i in vars(args).items()]
+    _ = [THE_LOGGER.info('args:%s, %s', i[0], i[1]) for i in vars(args).items()]
 
     if args.logdebug:
         LC_HANDLER.setLevel(logging.DEBUG)
