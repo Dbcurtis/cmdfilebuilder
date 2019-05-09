@@ -4,6 +4,7 @@
 Gathers the metadata as processed in cmdfilebuilder
 and organizes it by slots and files
 """
+
 import os
 import datetime
 import re
@@ -18,18 +19,20 @@ LOGGER = logging.getLogger(__name__)
 LOG_DIR = '../logs'
 LOG_FILE = '/accumulator'
 
+
 class Accumulator:
     """Accumulator(cmt)
 
     the cmt is the comment text for the system.
     """
+
     def __init__(self, cmt):
         """Accumulator(cmt)
 
         cmt is the comment flag
         """
         self._cmt = cmt
-        self._fileset = set([])
+        self._fileset = set()
         self._filelist = []
         self.slots = {}
         self.slots[SLOT_INITIAL] = Slot(SLOT_INITIAL)
@@ -49,7 +52,7 @@ class Accumulator:
 
         returns the file set.
         """
-        return set([l for l in self._fileset])
+        return {l for l in self._fileset}
 
     def add_file(self, _fin):
         """add_file(f)
@@ -73,17 +76,16 @@ class Accumulator:
         """
         if full_path:
             return self._filelist[:]
-        else:
-            if not self._filelist:
-                return[]
 
-            if len(self._filelist) == 1:
-                return [os.path.basename(n) for n in self._filelist]
-            common = os.path.join(os.path.commonpath(self._filelist), '')
-            stripped = [_.split(common)[1] for _ in self._filelist]
-            assert len(set(stripped)) == len(stripped)
-            return stripped
+        if not self._filelist:
+            return[]
 
+        if len(self._filelist) == 1:
+            return [os.path.basename(n) for n in self._filelist]
+        common = os.path.join(os.path.commonpath(self._filelist), '')
+        stripped = [_.split(common)[1] for _ in self._filelist]
+        assert len(set(stripped)) == len(stripped)
+        return stripped
 
     def add_slot(self, _myslot):
         """add_slot(_myslot)
@@ -113,19 +115,19 @@ class Accumulator:
 
         keys = sorted(self.slots.keys())
         result = []
+        _jj = ""
         if self._filelist:
             _jj = self._filelist[0:1][0]
-        else:
-            _jj = ""
 
         if not _jj.strip():
             _jj = '!UNSPECIFIED!'
+
         result.append('{} created on: {}\n'.format(self._cmt, str(datetime.datetime.now())[0:-7]))
         result.append('{} Controller type:{}\n'.format(self._cmt, self.repeater_ctrl_type))
         result.append('{} result from processing {}\n'.format(self._cmt, _jj))
         if self.get_filelist():
             result.append('{} Files included by reference:\n'.format(self._cmt))
-            result += ['{}\t{}\n'.format(self._cmt, _n)  for _n in self.get_filelist()]
+            result += ['{}\t{}\n'.format(self._cmt, _n) for _n in self.get_filelist()]
         for _k in keys:
             result.append('\n{}lines from Slot {}\n\n'.format(self._cmt, str(_k)))
             result += self.slots[_k].data
@@ -133,4 +135,3 @@ class Accumulator:
         result = [l + '\n' for l in re.sub(PAT, '\n\n', ''.join(result)).split('\n')]
 
         return result
-        
