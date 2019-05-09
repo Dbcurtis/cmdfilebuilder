@@ -17,12 +17,14 @@ LOGGER = logging.getLogger(__name__)
 LOG_DIR = '../logs'
 LOG_FILE = '/slot'
 
+
 class Slot:
     """Slot
 
     A class that contains a list of strings that are to be output
     when the slot is sequenced
     """
+
     def __init__(self, slotid, datain=None):
         """SLOT(slotid,datain=None)
 
@@ -46,6 +48,7 @@ class Slot:
         if not self.data:
             _outl.append(']')
             return ''.join(_outl).strip()
+
         _t_data = []
         for _ in self.data:
             if len(_) < 10:

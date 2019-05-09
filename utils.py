@@ -6,10 +6,11 @@ import logging
 import logging.handlers
 import collections
 
-from constants import SLOT_INITIAL, SLOT_FINAL, XMLTERMS, METADATA_PAT, \
-     CMTL, DATL, INL, CMT, METADATA, SLOT, FILELIST, FILE, SID, XMLSEQ, XMLSEQR
+from constants import XMLTERMS, METADATA_PAT, \
+     CMTL, DATL, INL, CMT, XMLSEQ, XMLSEQR
 
 LOGGER = logging.getLogger(__name__)
+
 
 def id_comment(line):
     """id_comment(line)
@@ -27,6 +28,7 @@ def id_comment(line):
             result = cmt
     LOGGER.info('Comment seq is "%s"', cmt)
     return result
+
 
 def _id_comment_in_file(file):
     """_id_comment_in_file(file)
@@ -48,6 +50,7 @@ def _id_comment_in_file(file):
         print("file {} not found when detecting comment character".format(file))
 
     return result
+
 
 def extract_numbered_lines(inlist, cmt):
     """extract_numbered_lines(inlist)
@@ -75,13 +78,14 @@ def extract_numbered_lines(inlist, cmt):
         _cmt = id_comment(inlist[0])
 
     if _cmt:
-        _cmtl_list = [(_i, _l) for _i, _l in enumerate(inlist) if  _l.startswith(_cmt)]
+        _cmtl_list = [(_i, _l) for _i, _l in enumerate(inlist) if _l.startswith(_cmt)]
         _datl_list = [(_i, _l) for _i, _l in enumerate(inlist) if not _l.startswith(_cmt)]
     else:
         _cmtl_list = []
         _datl_list = [(_i, _l) for _i, _l in enumerate(inlist)]
     _inl_list = [(_i, _l) for _i, _l in enumerate(inlist)]
-    return {CMTL: _cmtl_list, DATL: _datl_list, INL: _inl_list, CMT: _cmt,}
+    return {CMTL: _cmtl_list, DATL: _datl_list, INL: _inl_list, CMT: _cmt, }
+
 
 def read_the_file(infile, cmt=None):
     """read_the_file(infile)
@@ -100,6 +104,7 @@ def read_the_file(infile, cmt=None):
 
     return extract_numbered_lines(_inlist, cmt)
 
+
 def _intersect(tp1, tp2):
     """_intersect(tp1, tp2)
 
@@ -113,6 +118,7 @@ def _intersect(tp1, tp2):
     tp2above = tp1[1] < tp2[0]
     tp2below = tp2[1] < tp1[0]
     return not (tp2above or tp2below)
+
 
 def _intersects(tlist):
     """_intersects(tlist)
@@ -137,6 +143,7 @@ def _intersects(tlist):
             break
     return result
 
+
 def xmlmap(mydic, lines):
     """xmlmap(mydic, lines)
 
@@ -151,6 +158,7 @@ def xmlmap(mydic, lines):
             _wl = _wl.replace(_a, _b)
         result.append(_wl)
     return result
+
 
 def _split(intersected, intersector):
     """_split(intersected, intersector)
@@ -179,6 +187,7 @@ def _split(intersected, intersector):
             pieces.append((iorstart, iorend))
             pieces.append((iedstart, iorstart))
     return sorted(pieces)
+
 
 def removehits(ltup, hits):
     """removehits(ltup,hits)
@@ -213,7 +222,7 @@ def removehits(ltup, hits):
         hit = ()
         try:
             hit = hitq.popleft()
-        except:
+        except IndexError:
             break
         done = False
         while not done:
@@ -233,9 +242,10 @@ def removehits(ltup, hits):
             done = not hadhit
 
     fragments += working
-    #remove errors from the list
+    # remove errors from the list
     fixedfrags = [t for t in fragments if not t in hits]
     return fixedfrags
+
 
 def _encode_special_xml_char(nmd):
     """_encode_special_xml_char(nmd)
@@ -257,9 +267,9 @@ def _encode_special_xml_char(nmd):
         scans the non-XML data to encode special XML sequences
         returns a rebuilt line
         """
-        md_locations = []  #a list of tuples ((start,end), group0)
+        md_locations = []  # a list of tuples ((start,end), group0)
         idx = 0
-        while True:  #generates locations where there is metadata
+        while True:  # generates locations where there is metadata
             res = METADATA_PAT.search(line, idx)
             if res:
                 span = res.span()
@@ -267,13 +277,13 @@ def _encode_special_xml_char(nmd):
                 idx = span[1]
                 continue
             break
-        #now remove the metadata locations from the line
+        # now remove the metadata locations from the line
         hits = [s[0] for s in md_locations]
         nonhits = removehits([(0, len(line))], hits)
         nometadatalines = [(t, _encode_clean_line(line[t[0]:t[1]])) for t in nonhits]
-        #generate the line segments
+        # generate the line segments
         partials = [l for _, l in sorted(nometadatalines + md_locations)]
-        #and rebuild the line and return it
+        # and rebuild the line and return it
         return ''.join(partials)
 
     def _encode_clean_line(line):
@@ -300,6 +310,7 @@ def _decode_special_xml_char(lines):
     """
     return xmlmap(XMLSEQ, lines)
 
+
 def gen_xml(numbered_lines):
     """gen_xlm(numbered_lines)
 
@@ -311,10 +322,10 @@ def gen_xml(numbered_lines):
         numbered_lines is a list of tuples [0] the line number, and [1] the line
         """
         #result = []
-        orf = {True: lambda _a, _b: (_a, _b), False:lambda _a, _b: (_a, _b+'\n'),}
-        #for _n, _l in numbered_lines:
-            #tup = orf.get(_l.endswith('\n'))(_n, _l)
-            #result.append(tup)
+        orf = {True: lambda _a, _b: (_a, _b), False: lambda _a, _b: (_a, _b + '\n'), }
+        # for _n, _l in numbered_lines:
+        #tup = orf.get(_l.endswith('\n'))(_n, _l)
+        # result.append(tup)
         result = [orf.get(_l.endswith('\n'))(_n, _l) for _n, _l in numbered_lines]
         return result
 
@@ -322,7 +333,7 @@ def gen_xml(numbered_lines):
         return _.split(cmt)[1].strip()
 
     def _extract_line_tuples(tpl, numlines):
-        return  [_ for _ in numlines if _[0] in range(tpl[0], tpl[1]+1)]
+        return [_ for _ in numlines if _[0] in range(tpl[0], tpl[1] + 1)]
 
     result = None
     mdstart = [_n for _n, _l in numbered_lines.get(CMTL) if '<metadata' in _l]
@@ -342,21 +353,21 @@ def gen_xml(numbered_lines):
                'intersecting <metadata></metadata> blocks are not allowed'
         # extract the metadata info from the comments
         newkeynum = 0
-        metadata_linetuples = {}  #key as md# where # goes from 0 up
+        metadata_linetuples = {}  # key as md# where # goes from 0 up
         for _ in md_line_ranges:
-            metadata_linetuples['md'+str(newkeynum)] = [
+            metadata_linetuples['md' + str(newkeynum)] = [
                 (n, _stripcmt(numbered_lines.get(CMT), l))
                 for n, l in _extract_line_tuples(_, numbered_lines.get(CMTL))
             ]
             newkeynum += 1
         result = {}
-        #combine metadata comments with included text
-        #encode the data
-        #remove the numbers from the lines
+        # combine metadata comments with included text
+        # encode the data
+        # remove the numbers from the lines
         for _mditem in metadata_linetuples.items():
-            lst = _mditem[1]  #get md info for md block
-            keys = sorted(dict(lst).keys())  #get line numbers
-            totset = set([i for i in range(keys[0], keys[-1]+1)])
+            lst = _mditem[1]  # get md info for md block
+            keys = sorted(dict(lst).keys())  # get line numbers
+            totset = {i for i in range(keys[0], keys[-1] + 1)}
             lst += [t for t in numbered_lines.get(INL) if t[0] in totset - set(keys)]
             lst = _fixnewlines(lst)
             result[_mditem[0]] = [l for n, l in _encode_special_xml_char(sorted(lst))]
