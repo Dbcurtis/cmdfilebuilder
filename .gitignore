@@ -1,17 +1,17 @@
 # ignore all wing admin files
-**/.wpr
-**/.wpu
+**/.wp[ru]
+
 
 # ignore all files in the cache
-**/__pycache__/
+__pycache__/
 
 
 # ignore all files in the logs dir
-**/logs/
-**/Logs/
+logs/
+Logs/
 
 # ignore all files in the python virtual env
-**/.wvenv/
+.wvenv/
 
 # my private prams file
 
