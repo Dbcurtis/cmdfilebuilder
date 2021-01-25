@@ -6,10 +6,11 @@ import logging
 import logging.handlers
 import collections
 # from typing import Any, Union, Tuple, Callable, TypeVar, Generic, Sequence, Mapping, List, Dict, Set, Deque
-from typing import Any, Union, Tuple, Callable, TypeVar, Generic, Sequence, Mapping, List, Dict, Set, Deque, Boolean
+from typing import Any, Union, Tuple, Callable, TypeVar, Generic, Sequence, \
+    Mapping, List, Dict, Set, Deque
 
 from constants import XMLTERMS, METADATA_PAT, \
-     CMTL, DATL, INL, CMT, XMLSEQ, XMLSEQR
+    CMTL, DATL, INL, CMT, XMLSEQ, XMLSEQR
 
 LOGGER = logging.getLogger(__name__)
 
@@ -23,6 +24,7 @@ def id_comment(line:str)-> str:
     length is > 3 or if the comment character(s) contains a ">" or "<"
 
     """
+    
     result:str = None
     cmt:str=''
     if line:
@@ -43,13 +45,15 @@ def _id_comment_in_file(file):
     not used except for testing
 
     """
+
     result = None
     line = None
     try:
-        with open(file, 'r', encoding='utf-8') as _f:
+        #with open(file, 'r', encoding='utf-8') as _f:
+        with open(file, 'r') as _f:
             line = _f.readline()
         result = id_comment(line)
-    except FileNotFoundError:
+    except FileNotFoundError as fnf:
         print("file {} not found when detecting comment character".format(file))
 
     return result
@@ -77,6 +81,7 @@ def extract_numbered_lines(inlist:List[str], cmt)->Dict[Any,Any]:
         testlines.sort()
 
     """
+    
     if cmt:
         _cmt = cmt
     else:
@@ -104,13 +109,14 @@ def read_the_file(infile, cmt=None):
     Each of the xxL keys returns a list of tuples t[0] is the integer line number
     and t[1] is the line
     """
+    
     with open(infile, 'r') as _f:
         _inlist = _f.readlines()
 
     return extract_numbered_lines(_inlist, cmt)
 
 
-def _intersect(tp1, tp2)->Boolean:
+def _intersect(tp1, tp2)->bool:
     """_intersect(tp1, tp2)
 
     tp1 and tp2 tuples consiste of two numbers with the smaller number at 0 and
@@ -125,7 +131,7 @@ def _intersect(tp1, tp2)->Boolean:
     return not (tp2above or tp2below)
 
 
-def _intersects(tlist)->boolean:
+def _intersects(tlist)->bool:
     """_intersects(tlist)
 
     tlist is a list of tuples each of which consiste of two numbers with the smaller number at 0 and
@@ -135,6 +141,7 @@ def _intersects(tlist)->boolean:
     False otherwise
 
     """
+    
     result = False
     match = tlist[:]
 
@@ -169,6 +176,7 @@ def _split(intersected, intersector):
     """_split(intersected, intersector)
 
     """
+    
     pieces = []
     iedstart = intersected[0]
     iedend = intersected[1]
@@ -198,7 +206,8 @@ def removehits(ltup, hits):
     """removehits(ltup,hits)
 
     """
-    def _slice_intersect(tplin)->Boolean:
+    
+    def _slice_intersect(tplin:Tuple[Tuple[int, int],Tuple[int, int]])->bool:
         """_slice_intersect(tplin)
 
         tplin is a tuple

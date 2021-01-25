@@ -139,11 +139,11 @@ class TestAccumulator(unittest.TestCase):
         aa = acc.get_filelist(full_path=True)
         self.assertEqual(5, len(aa))
         expected = [  # ! TODO: this is system dependent
-            'M:\\Python\\Python3_packages\\cmdfilebuilder\\file1',
-            'M:\\Python\\Python3_packages\\cmdfilebuilder\\file2',
-            'M:\\Python\\Python3_packages\\cmdfilebuilder\\tests\\file2',
-            'M:\\Python\\Python3_packages\\cmdfilebuilder\\tests\\file3',
-            'M:\\Python\\Python3_packages\\cmdfilebuilder\\file3'
+            'm:\\Python\\Python3_packages\\cmdfilebuilder\\file1',
+            'm:\\Python\\Python3_packages\\cmdfilebuilder\\file2',
+            'm:\\Python\\Python3_packages\\cmdfilebuilder\\tests\\file2',
+            'm:\\Python\\Python3_packages\\cmdfilebuilder\\tests\\file3',
+            'm:\\Python\\Python3_packages\\cmdfilebuilder\\file3'
         ]
 
         self.assertEqual(expected, aa)
