@@ -1,4 +1,5 @@
-This is the README file for the XML file compiler project.
+..
+        This is the README file for the bla bla bla.
 
 ===========
 Overview
@@ -22,11 +23,11 @@ in the output file, and element Y is almost the last element
 in the output file --- Thus,
 you can have elements in a file that are prerequsets to other elements.
 The elements are (randomly) inserted into slots; each slot is output in
-numerical order.
+numerical order.  Thus, the elements in each slot must be indpendent of each other.
 
-Element prerequesets must be placed in a lower numbered slot (the content of
-slots is considered a randomly ordered list).
-    
+Element prerequesets must be placed in a lower numbered slot (the content of each
+slot is considered a randomly ordered list).
+
 =========================
 metadata tag restrictions
 =========================
@@ -55,8 +56,10 @@ The comment character(s) is defined by the first line of the master file and app
 all files specified in the <filelist></filelist>. 
 
 XML Comments are allowed within a <metadata> </metadata> tag block
-XML data must be on lines starting with the comment characters for example: ::
-    
+XML data must be on lines starting with the comment characters for example: 
+
+.. code-block::
+
         # identifies '#' as a comment charcter
         #<metadata repeater="dlx2-887354">
         #<!-- a metadata comment-->
@@ -65,8 +68,12 @@ XML data must be on lines starting with the comment characters for example: ::
 The first file must contain Slot-0 and Slot-99 elements as well as
 a file list element (which may be empty).
 
-The first file can consist of: ::
-    
+The first file can consist of:
+
+"""""""""""""""""
+
+.. code-block::
+
         # identifies '#' as a comment charcter
         #<metadata repeater="dlx2-887354">
         #<!-- a metadata comment-->
@@ -91,15 +98,19 @@ The first file can consist of: ::
         #   </slot>
         #</metadata>
 
+"""""""""""""""""
+
 The files element is only valid in the first file.
 
-1) If the first file does not contain a <metadata></metatdata> tag, the entire
+Exceptions:
+
+1. If the first file does not contain a <metadata></metatdata> tag, the entire
 first file is output as is.
 
-2) If the first file contains a <metadata></metatdata> tag, but no <slot></slot> tags
+2. If the first file contains a <metadata></metatdata> tag, but no <slot></slot> tags
 the entire first file is output as is.
 
-3) If the first file contains a <metadata></metatdata> tag, but no <filelist></filelist> tags
+3. If the first file contains a <metadata></metatdata> tag, but no <filelist></filelist> tags
 or all empty <filelist></filelist> tags,
 the entire first file is output in accordance to slot deffinitions
 
@@ -115,7 +126,11 @@ I expect that it may be of general use.
 Basic Usage Examples
 =========================
 
-The following is an abridged example of a primary file: ::
+The following is an abridged example of a primary file: 
+
+"""""""""""""""""
+
+.. code-block::
 
     ; Master File for creating the commands for XXX repeater
     ;<metadata repeater="dlx2-887354">
@@ -175,7 +190,13 @@ The following is an abridged example of a primary file: ::
     ; 310 is C310
     ;Command number 080 is named N.
     
-And the file setupport1.txt could be: ::
+"""""""""""""""""
+
+And the file setupport1.txt could be: 
+
+"""""""""""""""""
+
+.. code-block::
 
     ; setupport1.txt -- setup port 1 file
     ; This file
@@ -219,6 +240,8 @@ And the file setupport1.txt could be: ::
     ;</slot>
     ;</metadata>
 
+"""""""""""""""""
+
 
 =========================
 Whats New
@@ -230,7 +253,7 @@ Brand new.  It is all new
 Supported Repeater Controllers
 ===============================
 
-Currently expected to be supporte are: ('dlx2', 'club', 'rlc1', 'rlc1+').
+Currently expected to be supported are: ('dlx2', 'club', 'rlc1', 'rlc1+').
 Currently tested is dlx2.
 
 =========================
@@ -242,7 +265,11 @@ In the prior example, the text between the <slot id='x'></slot> tags
 are placed in the specified slots.
 
 A file can contain multiple elements that are placed into the same
-slot.  Thus: ::
+slot.  Thus: 
+
+"""""""""""""""""
+
+.. code-block::
 
         #   <slot id=5>
            #<!-- define element x for slot 5 -->
@@ -269,10 +296,14 @@ slot.  Thus: ::
         line ele-z(n)
         #   </slot>
 
- Note that the order that elements x and z from slot 5 are output is undefined.
- Note that html comments can be placed within the <data></data> fields and will
- appear in the output file.
- Note that comment lines within slots must not start at the beggining of the line
+"""""""""""""""""
+
+1. Note that the order that elements x and z from slot 5 are output is undefined.
+
+#. Note that html comments can be placed within the <data></data> fields and will
+   appear in the output file.
+
+#. Note that comment lines within slots must not start at the beggining of the line
 
 =========================
 Slots

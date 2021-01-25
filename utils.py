@@ -5,6 +5,8 @@ TBD
 import logging
 import logging.handlers
 import collections
+# from typing import Any, Union, Tuple, Callable, TypeVar, Generic, Sequence, Mapping, List, Dict, Set, Deque
+from typing import Any, Union, Tuple, Callable, TypeVar, Generic, Sequence, Mapping, List, Dict, Set, Deque, Boolean
 
 from constants import XMLTERMS, METADATA_PAT, \
      CMTL, DATL, INL, CMT, XMLSEQ, XMLSEQR
@@ -12,7 +14,7 @@ from constants import XMLTERMS, METADATA_PAT, \
 LOGGER = logging.getLogger(__name__)
 
 
-def id_comment(line):
+def id_comment(line:str)-> str:
     """id_comment(line)
 
     return the comment character(s) from the first characters of the line
@@ -21,7 +23,8 @@ def id_comment(line):
     length is > 3 or if the comment character(s) contains a ">" or "<"
 
     """
-    result = None
+    result:str = None
+    cmt:str=''
     if line:
         cmt = line.split(' ', 1)[0].strip()
         if cmt and len(cmt) <= 3 and not ('>' in cmt or '<' in cmt):
@@ -52,12 +55,14 @@ def _id_comment_in_file(file):
     return result
 
 
-def extract_numbered_lines(inlist, cmt):
+def extract_numbered_lines(inlist:List[str], cmt)->Dict[Any,Any]:
     """extract_numbered_lines(inlist)
 
     inlist is a list of lines
     if the first line does not define a comment character sequence
     an assertion is raised
+    
+    TODO what is cmt?
 
     returns a dict with the following keys. The values in the dict are tuples
     of the integer line number and the line.  The line number starts at 0
@@ -105,7 +110,7 @@ def read_the_file(infile, cmt=None):
     return extract_numbered_lines(_inlist, cmt)
 
 
-def _intersect(tp1, tp2):
+def _intersect(tp1, tp2)->Boolean:
     """_intersect(tp1, tp2)
 
     tp1 and tp2 tuples consiste of two numbers with the smaller number at 0 and
@@ -120,7 +125,7 @@ def _intersect(tp1, tp2):
     return not (tp2above or tp2below)
 
 
-def _intersects(tlist):
+def _intersects(tlist)->boolean:
     """_intersects(tlist)
 
     tlist is a list of tuples each of which consiste of two numbers with the smaller number at 0 and
@@ -193,7 +198,7 @@ def removehits(ltup, hits):
     """removehits(ltup,hits)
 
     """
-    def _slice_intersect(tplin):
+    def _slice_intersect(tplin)->Boolean:
         """_slice_intersect(tplin)
 
         tplin is a tuple
@@ -247,7 +252,7 @@ def removehits(ltup, hits):
     return fixedfrags
 
 
-def _encode_special_xml_char(nmd):
+def _encode_special_xml_char(nmd:List[Tuple[Any, ...]])->List[Tuple[Any, ...]]:
     """_encode_special_xml_char(nmd)
 
     nmd is a list of numbered xml line tuples
@@ -258,7 +263,7 @@ def _encode_special_xml_char(nmd):
     if these characters exist in the text processed by the XML parser,
     all hell breaks loose, they need to be encoded and decoded approrpately
     """
-    def _process_hits(line):
+    def _process_hits(line:str)->str:
         """_process_hits(line)
 
         line is a string
@@ -267,8 +272,8 @@ def _encode_special_xml_char(nmd):
         scans the non-XML data to encode special XML sequences
         returns a rebuilt line
         """
-        md_locations = []  # a list of tuples ((start,end), group0)
-        idx = 0
+        md_locations:List[Tuple[Any, ...]] = []  # a list of tuples ((start,end), group0)
+        idx:int = 0
         while True:  # generates locations where there is metadata
             res = METADATA_PAT.search(line, idx)
             if res:
@@ -278,15 +283,15 @@ def _encode_special_xml_char(nmd):
                 continue
             break
         # now remove the metadata locations from the line
-        hits = [s[0] for s in md_locations]
+        hits:List[Any] = [s[0] for s in md_locations]
         nonhits = removehits([(0, len(line))], hits)
-        nometadatalines = [(t, _encode_clean_line(line[t[0]:t[1]])) for t in nonhits]
+        nometadatalines:List[Any] = [(t, _encode_clean_line(line[t[0]:t[1]])) for t in nonhits]
         # generate the line segments
-        partials = [l for _, l in sorted(nometadatalines + md_locations)]
+        partials:List[Any] = [l for _, l in sorted(nometadatalines + md_locations)]
         # and rebuild the line and return it
         return ''.join(partials)
 
-    def _encode_clean_line(line):
+    def _encode_clean_line(line:str):
         return xmlmap(XMLSEQR, [line])[0]
 
     result = []

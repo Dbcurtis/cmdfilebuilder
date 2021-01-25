@@ -5,13 +5,14 @@
     Slots
     ------
     There are 100 slots where slots 0 and 99 are special.
-    Slots 1-98 contain lists of text that have been assigned to that slot (
-    the output order of the list within each slot is undefined).
+    Slots 1-98 contain lists of text that have been assigned to that slot
+    (the output order of the list within each slot is undefined).
 
     Slots 0 and 99 contain lists with at most one element.
 """
 import logging
 import logging.handlers
+from typing import Any, Union, Tuple, Callable, TypeVar, Generic, Sequence, Mapping, List, Dict, Set, Deque
 
 LOGGER = logging.getLogger(__name__)
 LOG_DIR = '../logs'
@@ -25,16 +26,20 @@ class Slot:
     when the slot is sequenced
     """
 
-    def __init__(self, slotid, datain=None):
+    def __init__(self, slotid: int, datain: List[str] = None):
         """SLOT(slotid,datain=None)
 
-        Slot is must be an integer with values between 0 and 99
+        slotid is must be an integer with values between 0 and 99
         datain is a list of strings
+        
+        raises Value Error if illegal slot number
 
         """
-        self.ident = 0
-        self.ident = slotid
-        self.data = []
+        if slotid < 0 or slotid > 99:
+            raise ValueError("slotid must be between 0 and 99 inclusive")
+        self.ident: int = 0
+        self.ident:int = slotid
+        self.data: List[str] = []
         if datain:
             self.data = datain[:]
 
@@ -75,16 +80,18 @@ class Slot:
         Appends a string or list to the slot's data
         """
         if isinstance(_datain, str):
-            self.data.append(_datain)
+            temp: str = _datain
+            self.data.append(temp)
         elif isinstance(_datain, (list, tuple)):
-            self.data += _datain
+            temp: List[Tuple[Any, ...]] = _datain
+            self.data += temp
         else:
             assert False, 'bad argument'
 
-    def is_mt(self):
+    def is_mt(self) -> bool:
         """is_mt()
 
-        returns True if the slot does not contain data (is empty)
+        returns True if the slot does not contain data (it is empty)
         False otherwise
         """
         if self.data:
