@@ -14,9 +14,7 @@ import xml.dom.minidom
 import accumulator
 import slot
 from constants import INL, CMT, FP, DP, SLOT_INITIAL, SLOT_FINAL, CMTL, DATL
-from utils import id_comment, _id_comment_in_file, extract_numbered_lines, \
-    read_the_file, _intersect, _intersects, _encode_special_xml_char, \
-    _decode_special_xml_char, _split, gen_xml
+from utils import read_the_file, _decode_special_xml_char,  gen_xml
 
 LOGGER = logging.getLogger(__name__)
 
