@@ -73,7 +73,7 @@ class Slot:
         return result
         
 
-    def append(self, _datain):
+    def append(self, _datain:Any):
         """append(datain)
 
         Appends a string or list to the slot's data
@@ -93,7 +93,4 @@ class Slot:
         returns True if the slot does not contain data (it is empty)
         False otherwise
         """
-        if self.data:
-            return False
-
-        return True
+        return not self.data

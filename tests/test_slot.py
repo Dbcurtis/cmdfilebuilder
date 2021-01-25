@@ -4,12 +4,11 @@ Test file for Slot
 """
 import os
 import sys
-#from context import cmdfilebuilder
+
 import unittest
 ppath = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(ppath)
 from slot import Slot
-
 
 class TestSlot(unittest.TestCase):
     def setUp(self):
@@ -92,8 +91,6 @@ class TestSlot(unittest.TestCase):
 
         except ValueError as ve1:
             self.fail("legal slot unhappy")
- 
-        
 
 
 if __name__ == '__main__':

@@ -8,6 +8,7 @@ and organizes it by slots and files
 import os
 import datetime
 import re
+from typing import Any, Tuple, List, Dict, Set
 import logging
 import logging.handlers
 from slot import Slot
@@ -32,12 +33,12 @@ class Accumulator:
         cmt is the comment flag
         """
         self._cmt = cmt
-        self._fileset = set()
-        self._filelist = []
-        self.slots = {}
+        self._fileset: Set[str] = set()
+        self._filelist: List[str] = []
+        self.slots: Dict[int, Any] = {}
         self.slots[SLOT_INITIAL] = Slot(SLOT_INITIAL)
         self.slots[SLOT_FINAL] = Slot(SLOT_FINAL)
-        self._disableprivslots = False
+        self._disableprivslots: bool = False
         self.repeater_ctrl_type = 'Unknown'
 
     def disable_priv_slots(self):
@@ -47,14 +48,14 @@ class Accumulator:
         """
         self._disableprivslots = True
 
-    def get_fileset(self):
+    def get_fileset(self) -> Set[Any]:
         """get_fileset()
 
         returns the file set.
         """
-        return {l for l in self._fileset}
+        return {l for l in self._fileset}  # relturning copy of the set
 
-    def add_file(self, _fin):
+    def add_file(self, _fin: str) -> bool:
         """add_file(f)
 
         if the file is already in the fileset, will return False
@@ -68,7 +69,7 @@ class Accumulator:
         self._filelist.append(_f)
         return True
 
-    def get_filelist(self, full_path=False):
+    def get_filelist(self, full_path: bool = False) -> List[Any]:
         """get_filelist()
 
         returns the filelist.  If full_path True, the full absolute path is provided
@@ -87,14 +88,15 @@ class Accumulator:
         assert len(set(stripped)) == len(stripped)
         return stripped
 
-    def add_slot(self, _myslot):
+    def add_slot(self, _myslot: int):
         """add_slot(_myslot)
 
         If a slot with the same id is already defined, the contents of _myslot is appended
-        onto the existin slot.  Otherwise, _myslot is saved in the self.slots dict
+        onto the existing slot.  Otherwise, _myslot is saved in the self.slots dict
 
         If _disableprivslots and s0 or s99, nothing is done
         """
+        
         if self._disableprivslots and _myslot.ident in (SLOT_INITIAL, SLOT_FINAL):
             LOGGER.error('Attempt to define slot 0 or 99 in non-primary file')
             return
@@ -105,7 +107,7 @@ class Accumulator:
             LOGGER.info('slot %s defined', _myslot.ident)
             self.slots[_myslot.ident] = _myslot
 
-    def get_lines(self):
+    def get_lines(self) -> List[str]:
         """get_lines()
 
         Generates lines from the slots.
@@ -114,24 +116,27 @@ class Accumulator:
         """
 
         keys = sorted(self.slots.keys())
-        result = []
-        _jj = ""
+        result: List[str] = []
+        _jj: str = ""
         if self._filelist:
             _jj = self._filelist[0:1][0]
 
         if not _jj.strip():
             _jj = '!UNSPECIFIED!'
 
-        result.append('{} created on: {}\n'.format(self._cmt, str(datetime.datetime.now())[0:-7]))
-        result.append('{} Controller type:{}\n'.format(self._cmt, self.repeater_ctrl_type))
-        result.append('{} result from processing {}\n'.format(self._cmt, _jj))
+        result.append(
+            f'{self._cmt} created on: {str(datetime.datetime.now())[0:-7]}\n')
+        result.append(
+            f'{self._cmt} Controller type:{self.repeater_ctrl_type}\n')
+        result.append(f'{self._cmt} result from processing {_jj}\n')
         if self.get_filelist():
-            result.append('{} Files included by reference:\n'.format(self._cmt))
-            result += ['{}\t{}\n'.format(self._cmt, _n) for _n in self.get_filelist()]
+            result.append(f'{self._cmt} Files included by reference:\n')
+            result += [f'{self._cmt}\t{_n}\n' for _n in self.get_filelist()]
         for _k in keys:
-            result.append('\n{}lines from Slot {}\n\n'.format(self._cmt, str(_k)))
+            result.append(f'\n{self._cmt}lines from Slot {str(_k)}\n\n')
             result += self.slots[_k].data
 
-        result = [l + '\n' for l in re.sub(PAT, '\n\n', ''.join(result)).split('\n')]
+        result = [
+            l + '\n' for l in re.sub(PAT, '\n\n', ''.join(result)).split('\n')]
 
         return result
