@@ -339,3 +339,12 @@ Repeater Attribute
 =========================
 If provided, metadata processing will only be done if the specified repeater
 controller is to receive the data. **what ever that means**
+
+=====================
+Copyright and License
+=====================
+
+Copyright (C) Daniel B. Curtis 2015-2021, Distributed under version 3 of 
+the GNU GENERAL PUBLIC LICENSE of which you should have received a copy.
+
+

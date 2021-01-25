@@ -9,6 +9,9 @@
     (the output order of the list within each slot is undefined).
 
     Slots 0 and 99 contain lists with at most one element.
+
+Copyright (C) Daniel B. Curtis 2015-2021, Distributed under version 3 of the GNU GENERAL PUBLIC LICENSE
+
 """
 import logging
 import logging.handlers

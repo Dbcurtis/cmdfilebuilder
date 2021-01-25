@@ -2,6 +2,9 @@
 """constants.py
 
 Contains constants
+
+Copyright (C) Daniel B. Curtis 2015-2021, Distributed under version 3 of the GNU GENERAL PUBLIC LICENSE
+
 """
 from typing import Any, Tuple, List, Dict, Set
 import re

@@ -3,6 +3,9 @@
 
 Gathers the metadata as processed in cmdfilebuilder
 and organizes it by slots and files
+
+Copyright (C) Daniel B. Curtis 2015-2021, Distributed under version 3 of the GNU GENERAL PUBLIC LICENSE
+
 """
 
 import os

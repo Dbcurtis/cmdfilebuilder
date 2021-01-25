@@ -2,6 +2,10 @@
 """ cmdfilebuilder
 
     See the README.rst file
+
+
+Copyright (C) Daniel B. Curtis 2015-2021, Distributed under version 3 of the GNU GENERAL PUBLIC LICENSE
+
 """
 
 import os

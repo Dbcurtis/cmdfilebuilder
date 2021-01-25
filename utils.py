@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 """
 TBD
+
+Copyright (C) Daniel B. Curtis 2015-2021, Distributed under version 3 of the GNU GENERAL PUBLIC LICENSE
+
 """
+
 import logging
 import logging.handlers
 import collections
