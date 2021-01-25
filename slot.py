@@ -44,35 +44,34 @@ class Slot:
             self.data = datain[:]
 
     def __str__(self):
-        _outl = ['[']
-        _outl.append('id:')
-        _outl.append(str(self.ident))
-        _outl.append(', len:')
-        _outl.append(str(len(self.data)))
-        _outl.append(', d:')
-        if not self.data:
-            _outl.append(']')
-            return ''.join(_outl).strip()
+        result:str=f'[id:{str(self.ident)}, len:{str(len(self.data))}, d:'
+        while True:
+            try:
+                if not self.data:                    
+                    break
+                _t_data:List[str] = []
+                
+                for _ in self.data:
+                    if len(_) < 10:
+                        _t_data.append(_)
+                    else:
+                        _t_data.append(_[0:5] + ' ... ' + _[-2:])
 
-        _t_data = []
-        for _ in self.data:
-            if len(_) < 10:
-                _t_data.append(_)
-            else:
-                _t_data.append(_[0:5] + ' ... ' + _[-2:])
-
-        if len(_t_data) > 5:
-            _j = []
-            _j += _t_data[0:1]
-            _j.append(' (...) ')
-            _j += _t_data[-2:]
-            _t_data = _j
-
-        _outl.append('(')
-        _outl.append(', '.join(_t_data))
-        _outl.append(')')
-        _outl.append(']')
-        return ''.join(_outl)
+                if len(_t_data) > 5:
+                    _j = []
+                    _j += _t_data[0:1]
+                    _j.append(' (...) ')
+                    _j += _t_data[-2:]
+                    _t_data = _j
+                _outl=['(']
+                _outl.append(', '.join(_t_data))
+                _outl.append(')')
+                result=f'{result}{"".join(_outl)}'
+                break 
+            finally:
+                result=f'{result}]'
+        return result
+        
 
     def append(self, _datain):
         """append(datain)

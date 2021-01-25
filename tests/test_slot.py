@@ -65,6 +65,12 @@ class TestSlot(unittest.TestCase):
         self.assertEqual(
             '[id:1, len:6, d:(first ...  \n,  (...) , line5 ... 5\n, line6 ... 6\n)]',
             str(s))
+        
+        for i in range(6,25):
+            s.append(str(i)+'\n')
+        
+        #aa = str(s)
+        self.assertEqual('[id:1, len:25, d:(first ...  \n,  (...) , 23\n, 24\n)]',str(s))
 
         s = Slot(2, datain=['line1\n', 'line2\n'])
         #t1 = str(s)
