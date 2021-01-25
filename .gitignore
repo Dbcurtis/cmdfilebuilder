@@ -13,5 +13,8 @@ Logs/
 # ignore all files in the python virtual env
 .wvenv/
 
+#ignore created/changing files
+**/testout.txt
+
 # my private prams file
 

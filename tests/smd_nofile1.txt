@@ -1,0 +1,24 @@
+# metadata no file test file 
+
+#<metadata repeater="dlx2-887354">
+#<!-- metadata no file but filelist-->
+#<filelist>
+#</filelist>
+#<slot id="2">
+data md2, slot 2, line 1
+data md2, slot 2, line 2
+#</slot>
+#<slot id='3'>
+data md2, slot 3, line 1
+data md2, slot 3, line 2
+data md2, slot 3, line 3
+#</slot>
+#<slot id="0">
+md2,s0,l3
+md2.s0,l4
+#</slot>
+#<slot id="99">
+md2,s99,l3
+md2.s99,l4
+#</slot>
+#</metadata>
